@@ -747,3 +747,21 @@
 2021-08-22 17:56:05 INFO  class:94 - 1 Rows Updated!
 2021-08-22 17:56:31 INFO  class:94 - 1 Rows Updated!
 2021-08-22 17:56:53 INFO  class:94 - 1 Rows Updated!
+2021-08-22 20:04:22 WARN  class:49 - For input string: "sdc"
+2021-08-22 20:04:22 INFO  class:51 - 0 Rows Inserted!
+2021-08-22 20:05:04 WARN  class:49 - For input string: "dsccsdf45"
+2021-08-22 20:05:04 INFO  class:51 - 0 Rows Inserted!
+2021-08-22 23:04:28 WARN  class:200 - null
+2021-08-22 23:04:28 WARN  class:200 - null
+2021-08-22 23:04:28 WARN  class:200 - null
+2021-08-22 23:04:28 WARN  class:200 - null
+2021-08-22 23:04:28 WARN  class:200 - null
+2021-08-22 23:04:28 WARN  class:200 - null
+2021-08-22 23:04:28 WARN  class:200 - null
+2021-08-22 23:04:28 WARN  class:200 - null
+2021-08-22 23:04:28 WARN  class:200 - null
+2021-08-22 23:04:28 WARN  class:200 - null
+2021-08-22 23:04:28 WARN  class:200 - null
+2021-08-22 23:04:28 WARN  class:200 - null
+2021-08-22 23:04:28 WARN  class:200 - null
+2021-08-22 23:04:28 WARN  class:200 - null
