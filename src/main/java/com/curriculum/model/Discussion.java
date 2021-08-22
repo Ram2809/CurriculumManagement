@@ -5,17 +5,19 @@ public class Discussion {
 	private String question;
 	private String answer;
 	private String unitNo;
+	private String date;
 
 	public Discussion() {
 		super();
 	}
 
-	public Discussion(Long questionNo, String question, String answer, String unitNo) {
+	public Discussion(Long questionNo, String question, String answer, String unitNo, String date) {
 		super();
 		this.questionNo = questionNo;
 		this.question = question;
 		this.answer = answer;
 		this.unitNo = unitNo;
+		this.date = date;
 	}
 
 	public Long getQuestionNo() {
@@ -50,10 +52,18 @@ public class Discussion {
 		this.unitNo = unitNo;
 	}
 
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
 	@Override
 	public String toString() {
 		return "Discussion [questionNo=" + questionNo + ", question=" + question + ", answer=" + answer + ", unitNo="
-				+ unitNo + "]";
+				+ unitNo + ", date=" + date + "]";
 	}
 
 }
