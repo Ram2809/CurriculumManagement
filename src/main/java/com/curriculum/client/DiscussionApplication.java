@@ -8,10 +8,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-
+import static com.curriculum.dao.impl.TopicDAOImpl.checkUnitNo;
 import com.curriculum.controller.DiscussionController;
 import com.curriculum.model.Discussion;
 import com.curriculum.exception.ControllerException;
+import com.curriculum.exception.InvalidChoiceException;
+import com.curriculum.exception.TopicNotFoundException;
 
 public class DiscussionApplication {
 	static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -30,6 +32,10 @@ public class DiscussionApplication {
 			String answer = bufferedReader.readLine();
 			System.out.println("Enter the unit no:");
 			String unitNo = bufferedReader.readLine();
+			boolean status=checkUnitNo(unitNo);
+			if (!status) {
+				throw new TopicNotFoundException("Topic not found,Enter the valid id!");
+			}
 			System.out.println("Enter the discussion date:");
 			String date = bufferedReader.readLine();
 			discussion.setQuestion(question);
@@ -38,19 +44,54 @@ public class DiscussionApplication {
 			discussion.setDate(date);
 			count=discussionController.addDiscussionDetails(discussion);
 			logger.info(count+" "+"Rows Inserted!");
-		} catch (NumberFormatException | IOException e) {
+		} catch (NumberFormatException | IOException |TopicNotFoundException e) {
 			logger.warn(e.getMessage());
 		}
 	}
 
 	public static void updateDiscussion() {
+		int count = 0;
 		try {
-			System.out.println("Enter the id:");
-			String questionNo = bufferedReader.readLine();
-			discussionController.updateDiscussionDetails(questionNo);
-		} catch (NumberFormatException | IOException | ControllerException e) {
+			System.out.println("Enter the question no:");
+			Long questionNo = Long.parseLong(bufferedReader.readLine());
+			System.out.println("1.Update Question");
+			System.out.println("2.Update Answer");
+			System.out.println("3.Update UnitNo");
+			System.out.println("4.Update Date");
+			System.out.println("Enter your choice:");
+			Integer userChoice = Integer.parseInt(bufferedReader.readLine());
+			switch (userChoice) {
+			case 1:
+				System.out.println("Enter the new question:");
+				String newQuestion = bufferedReader.readLine();
+				count = discussionController.updateDiscussionDetails(questionNo, "Question", newQuestion);
+				break;
+			case 2:
+				System.out.println("Enter the new answer:");
+				String newAnswer = bufferedReader.readLine();
+				count = discussionController.updateDiscussionDetails(questionNo, "Answer", newAnswer);
+				break;
+			case 3:
+				System.out.println("Enter the new unitNo:");
+				String newUnitNo = bufferedReader.readLine();
+				boolean status=checkUnitNo(newUnitNo);
+				if (!status) {
+					throw new TopicNotFoundException("Topic not found,Enter the valid id!");
+				}
+				count = discussionController.updateDiscussionDetails(questionNo, "UnitNo", newUnitNo);
+				break;
+			case 4:
+				System.out.println("Enter the new date:");
+				String newDate = bufferedReader.readLine();
+				count = discussionController.updateDiscussionDetails(questionNo, "Date", newDate);
+				break;
+			default:
+				throw new InvalidChoiceException("Enter the valid choice!");
+			}
+		} catch (NumberFormatException | IOException | ControllerException | InvalidChoiceException|TopicNotFoundException e) {
 			logger.warn(e.getMessage());
 		}
+		logger.info(count + " " + "Rows Updated!");
 	}
 
 	public static void deleteDiscussion() {
@@ -96,7 +137,7 @@ public class DiscussionApplication {
 		}
 	}
 
-	public static void discussionByUnit() {
+	/*public static void discussionByUnit() {
 		try {
 			System.out.println("Enter the unit no:");
 			String unitNo = bufferedReader.readLine();
@@ -104,7 +145,7 @@ public class DiscussionApplication {
 		} catch (IOException | NumberFormatException | ControllerException e) {
 			logger.warn(e.getMessage());
 		}
-	}
+	}*/
 
 	public static void main(String[] args) {
 		logger.info("In discussion application");
@@ -122,31 +163,24 @@ public class DiscussionApplication {
 				Integer userChoice = Integer.parseInt(bufferedReader.readLine());
 				switch (userChoice) {
 				case 1:
-					logger.info("In discussion controller -> add method");
 					insertDiscussion();
 					break;
 				case 2:
-					logger.info("In discussion controller -> update method");
 					updateDiscussion();
 					break;
 				case 3:
-					logger.info("In discussion controller -> delete method");
 					deleteDiscussion();
 					break;
 				case 4:
-					logger.info("In discussion controller -> get method");
 					getDiscussion();
 					break;
 				case 5:
-					logger.info("In discussion controller -> get particular discussion method");
 					getParticularDiscussion();
 					break;
-				case 6:
-					logger.info("In discussion controller -> get discussion by unit method");
+				/*case 6:
 					discussionByUnit();
-					break;
+					break;*/
 				case 7:
-					logger.info("Exits from class application");
 					System.exit(0);
 					break;
 				default:

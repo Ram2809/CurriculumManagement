@@ -19,7 +19,7 @@ public class TopicDAOImpl implements TopicDAO{
 	static List<Topic> topicsList = new ArrayList<>();
 	static Logger logger = Logger.getLogger("TopicDAOImpl.class");
 
-	public boolean checkUnitNo(String unitNo) {
+	public static boolean checkUnitNo(String unitNo) {
 		boolean status = false;
 		try (Connection con = DBUtil.getConnection();) {
 			PreparedStatement preparedStatement = null;
